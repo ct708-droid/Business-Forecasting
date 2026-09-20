@@ -1,0 +1,100 @@
+---
+title: "Employee Survey Assignment"
+author: "Chirag Tahiliani"
+date: "2026-09-20"
+output: html_document
+---
+
+# Import Data
+
+```{r}
+survey <- read.csv("1Typical_Employee_Survey_Data.csv.csv")
+```
+
+# Rename Columns
+
+```{r}
+names(survey)[1] <- "Age"
+names(survey)[2] <- "Gender"
+names(survey)[3] <- "Satisfaction"
+names(survey)[4] <- "JobCharacteristic"
+names(survey)[5] <- "YearsWorked"
+names(survey)[6] <- "PromotionLikelihood"
+names(survey)[7] <- "DecisionMaking"
+names(survey)[8] <- "BudgetDecisions"
+names(survey)[9] <- "Pride"
+names(survey)[10] <- "RejectOtherJobs"
+names(survey)[11] <- "Relations"
+
+dim(survey)
+head(survey)
+str(survey)
+```
+
+# Five-Number Summaries and Boxplots
+
+```{r}
+fivenum(survey$Age)
+boxplot(survey$Age)
+
+fivenum(survey$YearsWorked)
+boxplot(survey$YearsWorked)
+```
+
+# Save Numerical Data
+
+```{r}
+survey_numeric <- survey
+```
+
+# Convert Columns to Factors
+
+```{r}
+survey$Gender <- as.factor(survey$Gender)
+survey$Satisfaction <- as.factor(survey$Satisfaction)
+survey$JobCharacteristic <- as.factor(survey$JobCharacteristic)
+survey$PromotionLikelihood <- as.factor(survey$PromotionLikelihood)
+survey$DecisionMaking <- as.factor(survey$DecisionMaking)
+survey$BudgetDecisions <- as.factor(survey$BudgetDecisions)
+survey$Pride <- as.factor(survey$Pride)
+survey$RejectOtherJobs <- as.factor(survey$RejectOtherJobs)
+survey$Relations <- as.factor(survey$Relations)
+
+str(survey)
+summary(survey)
+```
+
+# Graphs for Each Column
+
+```{r}
+hist(survey$Age)
+barplot(table(survey$Gender), names.arg = c("Male", "Female"))
+barplot(table(survey$Satisfaction), names.arg = c("Very Satisfied", "Moderately Satisfied", "A Little Dissatisfied", "Very Dissatisfied"))
+barplot(table(survey$JobCharacteristic), names.arg = c("High Income", "Job Security", "Flexible Hours", "Advancement", "Enjoy Work"))
+hist(survey$YearsWorked)
+barplot(table(survey$PromotionLikelihood), names.arg = c("Very Likely", "Likely", "Not Sure", "Unlikely", "Very Unlikely"))
+barplot(table(survey$DecisionMaking), names.arg = c("Always", "Much of Time", "Sometimes", "Never"))
+barplot(table(survey$BudgetDecisions), names.arg = c("Yes", "No"))
+barplot(table(survey$Pride), names.arg = c("Very Proud", "Somewhat Proud", "Indifferent", "Not Proud"))
+barplot(table(survey$RejectOtherJobs), names.arg = c("Very Likely", "Likely", "Not Sure", "Unlikely", "Very Unlikely"))
+barplot(table(survey$Relations), names.arg = c("Very Good", "Good", "So So", "Bad"))
+```
+
+# Scatterplots
+
+```{r}
+plot(survey_numeric$Age, survey_numeric$YearsWorked,
+     main = "Age and Years Worked",
+     xlab = "Age",
+     ylab = "Years Worked")
+
+plot(survey_numeric$YearsWorked, survey_numeric$Satisfaction,
+     main = "Years Worked and Satisfaction",
+     xlab = "Years Worked",
+     ylab = "Satisfaction Code")
+
+plot(survey_numeric$Age, survey_numeric$PromotionLikelihood,
+     main = "Age and Promotion Likelihood",
+     xlab = "Age",
+     ylab = "Promotion Likelihood Code")
+```
